@@ -91,6 +91,15 @@ const nameAccount = function (accs) {
 };
 nameAccount(accounts);
 console.log(accounts);
+
+const showBalance = function (movements) {
+  const showTotalBalance = movements.reduce(function (acc, mov) {
+    return acc + mov;
+  });
+  labelBalance.textContent = `${showTotalBalance} EUR`;
+};
+showBalance(account1.movements);
+
 /*
 const userNameHack = function (user) {
   const userName = user
@@ -195,4 +204,18 @@ console.log(account1.movements);
 console.log(convertToUSD);
 // convertToUSD();
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const deposits = movements.filter(function (movement) {
+  return movement > 0;
+});
+console.log(movements);
+console.log(deposits);
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const balance = movements.reduce(function (acc, value, index, arr) {
+  console.log(`${index} : ${acc}`);
+  return acc + value;
+}, 0);
+console.log(balance);
 */
