@@ -78,6 +78,36 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+const nameAccount = function (accs) {
+  accs.forEach(acc => {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(function (word) {
+        return word[0];
+      })
+      .join('');
+  });
+};
+nameAccount(accounts);
+console.log(accounts);
+/*
+const userNameHack = function (user) {
+  const userName = user
+    .toLowerCase()
+    .split(' ')
+    .map(function (word) {
+      return word[0];
+    })
+    .join('');
+  return userName;
+};
+console.log(userNameHack('Steven Thomas Williams'));
+*/
+// const user = 'Steven Thomas Williams';
+
+// console.log(userName);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -127,4 +157,42 @@ console.log(set);
 set.forEach((value, _, set) => {
   console.log(`${value} : ${value}`);
 });
+*/
+
+////////////////////////////////////////////////////
+
+// Problem-Solving Framework
+// 1. Crate a function checkDogs with two input arrays showing Julia's and Kate's data.
+// 2. Since, some of Julia's array data contain the records of cats, You have to create a shallow copy of that array and remove the cats' data from that copied array.
+// 3. Create a joined array from both Julia's and Kate's data.
+// 4. For the remaining data remained inside the joined array, log the output.
+// 5. Run the function for both the datasets.
+/*
+const checkDogs = function (dogsJulia, dogsKate) {
+  const dogsJuliaCopied = dogsJulia.slice(1, -2);
+  const joinedData = [...dogsJuliaCopied, ...dogsKate];
+  console.log(joinedData);
+  joinedData.forEach((age, index) => {
+    if (age < 3) {
+      console.log(`Dog number ${index + 1} is still a puppy.`);
+    } else {
+      console.log(`Dog number ${index + 1} is an adult.`);
+    }
+  });
+};
+checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+
+// const dogsJulia = [3, 5, 2, 12, 7];
+// const data = dogsJulia.slice(1, -2);
+// console.log(data);
+
+const eurToUSD = 1.1;
+const convertToUSD = account1.movements.map(function (movement) {
+  return movement * eurToUSD;
+});
+
+console.log(account1.movements);
+console.log(convertToUSD);
+// convertToUSD();
+
 */
