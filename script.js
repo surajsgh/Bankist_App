@@ -78,20 +78,20 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes} €`;
 
-  const out = movements
+  const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(out)} €`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       console.log(arr);
       return int >= 1;
@@ -99,7 +99,7 @@ const calcDisplaySummary = function (movements) {
     .reduce((acc, mov) => acc + mov);
   labelSumInterest.textContent = `${interest} €`;
 };
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1);
 
 const nameAccount = function (accs) {
   accs.forEach(acc => {
@@ -123,6 +123,39 @@ const showBalance = function (movements) {
 };
 showBalance(account1.movements);
 
+let currentAccount;
+// Event Handler
+btnLogin.addEventListener('click', function (e) {
+  // Prevent data from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.userName === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and Welcome message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    // Display Balance
+    showBalance(currentAccount.movements);
+
+    // Display Summary
+    calcDisplaySummary(currentAccount);
+
+    // Display Movements
+    displayMovements(currentAccount.movements);
+    // console.log('LOGIN');
+  }
+});
 /*
 const userNameHack = function (user) {
   const userName = user
@@ -248,6 +281,14 @@ const balance = movements.reduce(function (acc, value, index, arr) {
   return acc + value;
 }, 0);
 console.log(balance);
+const calcAverageHumanAge = array => {
+  const humanAge = array
+    .map(dogAge => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+    .filter(dogAge => dogAge >= 18)
+    .reduce((acc, dogAge, i, arr) => acc + dogAge / arr.length, 0);
+  return humanAge;
+};
+console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 */
 
 /* 
@@ -302,3 +343,15 @@ const totalDepositsUSD = movements
 console.log(totalDepositsUSD);
 */
 
+/* 
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+*/
