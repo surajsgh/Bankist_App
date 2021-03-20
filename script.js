@@ -286,7 +286,6 @@ const calc = function (ages) {
 };
 
 console.log(calc([5, 2, 4, 1, 15, 8, 3]));
-*/
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const euroToUSD = 1.1;
@@ -301,3 +300,5 @@ const totalDepositsUSD = movements
   })
   .reduce((acc, mov) => acc + mov, 0);
 console.log(totalDepositsUSD);
+*/
+
