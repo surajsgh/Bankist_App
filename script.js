@@ -186,6 +186,20 @@ btnTransfer.addEventListener('click', e => {
   }
 });
 
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movements
+    currentAccount.movements.push(amount);
+    // Update UI
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+
 btnClose.addEventListener('click', e => {
   e.preventDefault();
   // console.log('Close');
@@ -404,4 +418,12 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const firstWithdrawal = movements.find(mov => mov < 0);
 console.log(movements);
 console.log(firstWithdrawal);
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements);
+// includes method returns true if the movements contain the given value.
+console.log(movements.includes(-130));
+
+// some does the same thing as includes with the only one exception that movements represents equality and some method represents the condition.
+const find = movements.some(mov => mov === -1330);
+console.log(find);
 */
