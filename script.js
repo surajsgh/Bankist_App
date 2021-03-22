@@ -61,10 +61,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach((value, key) => {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach((value, key) => {
     const type = value < 0 ? `withdrawal` : `deposit`;
 
     const html = `<div class="movements__row">
@@ -219,6 +221,11 @@ btnClose.addEventListener('click', e => {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+btnSort.addEventListener('click', e => {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, true);
 });
 /*
 const userNameHack = function (user) {
@@ -418,12 +425,75 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const firstWithdrawal = movements.find(mov => mov < 0);
 console.log(movements);
 console.log(firstWithdrawal);
+
+// some does the same thing as includes with the only one exception that movements represents equality and some method represents the condition.
+
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 console.log(movements);
 // includes method returns true if the movements contain the given value.
 console.log(movements.includes(-130));
 
-// some does the same thing as includes with the only one exception that movements represents equality and some method represents the condition.
 const find = movements.some(mov => mov === -1330);
 console.log(find);
+
+const check = movements.every(mov => mov < 5000);
+console.log(check);
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2));
+
+// console.log(accounts[0].movements);
+// Flat
+const overAllBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overAllBalance);
+
+// FlatMap
+const overAllBalance1 = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overAllBalance1);
+
+// sorting algorithm also mutates the original array.
+console.log('Sorting Algorithm for strings');
+const owner = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owner.sort());
+console.log(owner);
+
+// Sorting algorithm doesn't work this way but it orders the movements array as not as you thought it to be.(Not suitable for numbers).
+console.log('Sorting Algorithm for numbers(Not Suitable)');
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+console.log(movements);
+console.log(movements.sort());
+
+// That's why there's another approach we're supposed to follow:
+console.log('Sorting in ascending order : ');
+// movements.sort((a, b) => {
+//   if (a > b) {
+//     return 1;
+//   }
+//   if (a < b) {
+//     return -1;
+//   }
+// });
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+console.log('Sorting in descending order : ');
+// movements.sort((a, b) => {
+//   if (a > b) {
+//     return -1;
+//   }
+//   if (a < b) {
+//     return 1;
+//   }
+// });
+movements.sort((a, b) => b - a);
+console.log(movements);
 */
