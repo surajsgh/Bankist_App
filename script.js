@@ -73,7 +73,7 @@ const displayMovements = function (movements, sort = false) {
                     <div class="movements__type movements__type--${type}">${
       key + 1
     } ${type}</div>
-                    <div class="movements__value">${value}</div></div>`;
+                    <div class="movements__value">${value}€</div></div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
@@ -498,4 +498,22 @@ console.log('Sorting in descending order : ');
 // });
 movements.sort((a, b) => b - a);
 console.log(movements);
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+console.log(arr);
+console.log(new Array(2, 3, 4, 5));
+
+// Empty Arrays + fill method
+const x = new Array(7);
+console.log(x);
+
+console.log(x.fill(1, 3, 5));
+x.fill(1);
+console.log(x);
+
+let test = Array.from({ length: 7 }, () => 1);
+console.log(test);
+
+let test1 = Array.from({ length: 5 }, (_, i) => i + 1);
+console.log(test1);
 */
