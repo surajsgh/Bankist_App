@@ -121,7 +121,7 @@ const showBalance = function (acc) {
   acc.balance = acc.movements.reduce(function (acc, mov) {
     return acc + mov;
   });
-  labelBalance.textContent = `${acc.balance} EUR`;
+  labelBalance.textContent = `${acc.balance} €`;
 };
 // showBalance(account1.movements);
 
@@ -228,6 +228,16 @@ btnSort.addEventListener('click', e => {
   e.preventDefault();
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
+});
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
 });
 /*
 const userNameHack = function (user) {
