@@ -173,7 +173,7 @@ btnLogin.addEventListener('click', function (e) {
   );
   console.log(currentAccount);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and Welcome message
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
@@ -192,7 +192,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', e => {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
   const transferAmountTo = accounts.find(
     acc => acc.userName === inputTransferTo.value
   );
@@ -217,7 +217,7 @@ btnTransfer.addEventListener('click', e => {
 btnLoan.addEventListener('click', e => {
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = +inputLoanAmount.value;
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movements
@@ -233,7 +233,7 @@ btnClose.addEventListener('click', e => {
   // console.log('Close');
   if (
     currentAccount?.userName === inputCloseUsername.value &&
-    currentAccount.pin === Number(inputClosePin.value)
+    currentAccount.pin === +inputClosePin.value
   ) {
     const index = accounts.findIndex(
       acc => acc.userName === currentAccount.userName
@@ -259,7 +259,7 @@ btnSort.addEventListener('click', e => {
 labelBalance.addEventListener('click', function () {
   const movementsUI = Array.from(
     document.querySelectorAll('.movements__value'),
-    el => Number(el.textContent.replace('€', ''))
+    el => +el.textContent.replace('€', '')
   );
   console.log(movementsUI);
 
@@ -555,3 +555,16 @@ console.log(test);
 let test1 = Array.from({ length: 5 }, (_, i) => i + 1);
 console.log(test1);
 */
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// Numbers, Dates, Intl and Timer ////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Integer Number and Decimal Value check
+console.log(23 === 23.0);
+console.log(0.2 + 0.1);
+
+console.log(typeof Number('23'));
+console.log(typeof 23);
+console.log(typeof +'23');
+console.log(typeof '23');
