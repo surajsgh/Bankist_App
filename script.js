@@ -164,8 +164,22 @@ const updateUI = function (acc) {
   displayMovements(currentAccount.movements);
 };
 
-let currentAccount;
 // Event Handler
+let currentAccount;
+
+// Fake always logged in
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, 0);
+const month = `${now.getMonth() + 1}`.padStart(2, 0);
+const year = now.getFullYear();
+const hour = now.getHours();
+const mins = now.getMinutes();
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${mins}`;
+
 btnLogin.addEventListener('click', function (e) {
   // Prevent data from submitting
   e.preventDefault();
@@ -630,4 +644,33 @@ console.log((2.7).toFixed(0));
 console.log((2.7).toFixed(3));
 console.log((2.693).toFixed(2));
 console.log(+(2.345).toFixed(2));
+
+const now = new Date();
+console.log(now);
+
+console.log(new Date('Sun Mar 28 2021 20:09:14'));
+console.log(new Date('June 22, 1998'));
+// console.log(account1.movementsDates[0]);
+console.log(new Date(account1.movementsDates[0]));
+console.log(new Date(2019, 11, 19, 3, 1, 17));
+
+console.log(new Date(0));
+console.log(new Date(3 * 24 * 60 * 60 * 1000));
+
+// Get methods
+const date = new Date(2019, 1, 19, 3, 1, 17);
+console.log(date);
+console.log(date.getFullYear());
+console.log(date.getMonth());
+console.log(date.getDay());
+console.log(date.getHours());
+console.log(date.getDay());
+console.log(date.getDate());
+console.log(date.getMinutes());
+console.log(date.getSeconds());
+console.log(date.getTime());
+
+// Set Methods
+date.setFullYear(2040);
+console.log(date);
 */
