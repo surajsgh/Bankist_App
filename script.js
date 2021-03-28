@@ -7,7 +7,7 @@
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 
@@ -99,7 +99,9 @@ const displayMovements = function (movements, sort = false) {
                     <div class="movements__type movements__type--${type}">${
       key + 1
     } ${type}</div>
-                    <div class="movements__value">${value}€</div></div>`;
+                    <div class="movements__value">${value.toFixed(
+                      2
+                    )}€</div></div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
@@ -110,12 +112,12 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes} €`;
+  labelSumIn.textContent = `${incomes.toFixed(2)} €`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)} €`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)} €`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -125,7 +127,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, mov) => acc + mov);
-  labelSumInterest.textContent = `${interest} €`;
+  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
 };
 // calcDisplaySummary(account1);
 
@@ -217,7 +219,7 @@ btnTransfer.addEventListener('click', e => {
 btnLoan.addEventListener('click', e => {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movements
@@ -560,6 +562,7 @@ console.log(test1);
 /////////////////////////////////// Numbers, Dates, Intl and Timer ////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/*
 // Integer Number and Decimal Value check
 console.log(23 === 23.0);
 console.log(0.2 + 0.1);
@@ -568,3 +571,63 @@ console.log(typeof Number('23'));
 console.log(typeof 23);
 console.log(typeof +'23');
 console.log(typeof '23');
+
+// parseInt helps to parse the integer number from the string as long as it appears in the beginning.
+console.log(Number.parseInt('23e', 10));
+console.log(Number.parseInt('we23', 10));
+
+// parseFloat does the same thing except the fact that it does it for floating numbers.
+console.log(Number.parseFloat(' 2.5 rem  '));
+
+// Square root
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(125 ** (1 / 3));
+
+// Max Number
+console.log(Math.max(5, 18, 23, 11, 2));
+console.log(Math.max(5, 18, '23', 11, 2));
+console.log(Math.max(5, 18, '23er', 11, 2));
+
+// Min Number
+console.log(Math.min(5, 18, 23, 11, 2));
+
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+// Random Number Generation
+console.log(Math.trunc(Math.random() * 6) + 1);
+
+// Random Number between range of two numbers
+const randomInt = (min, max) =>
+  Math.trunc(Math.random() * (max - min + 1) + min);
+console.log(randomInt(10, 20));
+
+// Rounding Integer
+
+// Rounds the integer to the closer value.
+console.log(Math.round(23.3));
+console.log(Math.round(23.9));
+
+// Rounds up the value.
+console.log(Math.ceil(23.3));
+console.log(Math.ceil(23.9));
+
+// Rounds down the value.
+console.log(Math.floor(23.3));
+console.log(Math.floor(23.9));
+
+console.log(Math.trunc(23.3));
+console.log(Math.trunc(23.9));
+
+console.log(Math.trunc(-23.3));
+console.log(Math.trunc(-23.9));
+
+console.log(Math.floor(-23.3));
+console.log(Math.floor(-23.9));
+
+// Rounding Decimals
+console.log((2.7).toFixed(0));
+console.log((2.7).toFixed(3));
+console.log((2.693).toFixed(2));
+console.log(+(2.345).toFixed(2));
+*/
