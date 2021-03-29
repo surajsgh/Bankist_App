@@ -183,14 +183,6 @@ currentAccount = account1;
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
-const now = new Date();
-const day = `${now.getDate()}`.padStart(2, 0);
-const month = `${now.getMonth() + 1}`.padStart(2, 0);
-const year = now.getFullYear();
-const hour = now.getHours();
-const mins = now.getMinutes();
-labelDate.textContent = `${day}/${month}/${year}, ${hour}:${mins}`;
-
 btnLogin.addEventListener('click', function (e) {
   // Prevent data from submitting
   e.preventDefault();
@@ -198,7 +190,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.userName === inputLoginUsername.value
   );
-  console.log(currentAccount);
+  // console.log(currentAccount);
 
   if (currentAccount?.pin === +inputLoginPin.value) {
     // Display UI and Welcome message
@@ -206,6 +198,14 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const mins = now.getMinutes();
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${mins}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -236,6 +236,10 @@ btnTransfer.addEventListener('click', e => {
     currentAccount.movements.push(-amount);
     transferAmountTo.movements.push(amount);
 
+    // Add transfer dates
+    currentAccount.movementsDates.push(new Date().toISOString());
+    transferAmountTo.movementsDates.push(new Date().toISOString());
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -249,6 +253,9 @@ btnLoan.addEventListener('click', e => {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movements
     currentAccount.movements.push(amount);
+
+    // To transfer movement dates
+    currentAccount.movementsDates.push(new Date().toISOString());
     // Update UI
     updateUI(currentAccount);
   }
