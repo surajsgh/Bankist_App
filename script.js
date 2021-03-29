@@ -87,6 +87,28 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//  Functions
+const formatMovementDate = function (date) {
+  const calcDifference = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (24 * 60 * 60 * 1000));
+
+  const daysPassed = calcDifference(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) {
+    return 'today';
+  } else if (daysPassed === 1) {
+    return 'yesterday';
+  } else if (daysPassed <= 7) {
+    return `${daysPassed} days ago`;
+  } else {
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+};
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -98,12 +120,7 @@ const displayMovements = function (acc, sort = false) {
     const type = value < 0 ? `withdrawal` : `deposit`;
 
     const date = new Date(acc.movementsDates[key]);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const hour = `${date.getHours()}`.padStart(2, 0);
-    const mins = `${date.getMinutes()}`.padStart(2, 0);
-    const displayDate = `${day}/${month}/${year}`;
+    const displayDate = formatMovementDate(date);
 
     const html = `<div class="movements__row">
                     <div class="movements__type movements__type--${type}">${
@@ -662,7 +679,9 @@ console.log((2.7).toFixed(0));
 console.log((2.7).toFixed(3));
 console.log((2.693).toFixed(2));
 console.log(+(2.345).toFixed(2));
+*/
 
+/*
 const now = new Date();
 console.log(now);
 
@@ -692,3 +711,15 @@ console.log(date.getTime());
 date.setFullYear(2040);
 console.log(date);
 */
+
+// Conversion of date to the ISO standards
+const future = new Date(2037, 10, 19, 15, 23);
+
+// Conversion of date to the number format
+console.log(+future);
+
+// Calculate the difference
+const calcDifference = (date1, date2) =>
+  (date2 - date1) / (24 * 60 * 60 * 1000);
+
+console.log(calcDifference(new Date(2037, 3, 14), new Date(2037, 3, 27)));
