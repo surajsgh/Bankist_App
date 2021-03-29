@@ -101,8 +101,8 @@ const displayMovements = function (acc, sort = false) {
     const day = `${date.getDate()}`.padStart(2, 0);
     const month = `${date.getMonth() + 1}`.padStart(2, 0);
     const year = date.getFullYear();
-    const hour = date.getHours();
-    const mins = date.getMinutes();
+    const hour = `${date.getHours()}`.padStart(2, 0);
+    const mins = `${date.getMinutes()}`.padStart(2, 0);
     const displayDate = `${day}/${month}/${year}`;
 
     const html = `<div class="movements__row">
