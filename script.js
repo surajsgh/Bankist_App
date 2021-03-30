@@ -88,7 +88,7 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 //  Functions
-const formatMovementDate = function (date) {
+const formatMovementDate = function (date, locale) {
   const calcDifference = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (24 * 60 * 60 * 1000));
 
@@ -102,10 +102,11 @@ const formatMovementDate = function (date) {
   } else if (daysPassed <= 7) {
     return `${daysPassed} days ago`;
   } else {
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    // const day = `${date.getDate()}`.padStart(2, 0);
+    // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    // const year = date.getFullYear();
+    // return `${day}/${month}/${year}`;
+    return new Intl.DateTimeFormat(locale).format(date);
   }
 };
 
@@ -120,7 +121,7 @@ const displayMovements = function (acc, sort = false) {
     const type = value < 0 ? `withdrawal` : `deposit`;
 
     const date = new Date(acc.movementsDates[key]);
-    const displayDate = formatMovementDate(date);
+    const displayDate = formatMovementDate(date, acc.locale);
 
     const html = `<div class="movements__row">
                     <div class="movements__type movements__type--${type}">${
@@ -222,18 +223,19 @@ btnLogin.addEventListener('click', function (e) {
       hour: '2-digit',
       minute: 'numeric',
       day: 'numeric',
-      month: 'long',
+      month: 'numeric',
       year: 'numeric',
-      weekday: 'long',
+      // weekday: 'long',
     };
 
     // Returns the language of the browser UI
     const locale = navigator.language;
     console.log(locale);
 
-    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
-      now
-    );
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
     console.log(labelDate.textContent);
     // const now = new Date();
     // const day = `${now.getDate()}`.padStart(2, 0);
