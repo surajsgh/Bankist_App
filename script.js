@@ -110,6 +110,13 @@ const formatMovementDate = function (date, locale) {
   }
 };
 
+const format = function (locale, currency, value) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -123,14 +130,19 @@ const displayMovements = function (acc, sort = false) {
     const date = new Date(acc.movementsDates[key]);
     const displayDate = formatMovementDate(date, acc.locale);
 
+    // const formattedMov = new Intl.NumberFormat(acc.locale, {
+    //   style: 'currency',
+    //   currency: acc.currency,
+    // }).format(value);
+
+    const formattedMov = format(acc.locale, acc.currency, value);
+
     const html = `<div class="movements__row">
                     <div class="movements__type movements__type--${type}">${
       key + 1
     } ${type}</div>
                     <div class="movements__date">${displayDate}</div>
-                    <div class="movements__value">${value.toFixed(
-                      2
-                    )}€</div></div>`;
+                    <div class="movements__value">${formattedMov}</div></div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
@@ -141,12 +153,12 @@ const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes.toFixed(2)} €`;
+  labelSumIn.textContent = format(acc.locale, acc.currency, incomes);
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out).toFixed(2)} €`;
+  labelSumOut.textContent = format(acc.locale, acc.currency, Math.abs(out));
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -156,7 +168,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, mov) => acc + mov);
-  labelSumInterest.textContent = `${interest.toFixed(2)} €`;
+  labelSumInterest.textContent = format(acc.locale, acc.currency, interest);
 };
 // calcDisplaySummary(account1);
 
@@ -178,7 +190,7 @@ const showBalance = function (acc) {
   acc.balance = acc.movements.reduce(function (acc, mov) {
     return acc + mov;
   });
-  labelBalance.textContent = `${acc.balance} €`;
+  labelBalance.textContent = format(acc.locale, acc.currency, acc.balance);
 };
 // showBalance(account1.movements);
 
@@ -731,7 +743,6 @@ console.log(date.getTime());
 // Set Methods
 date.setFullYear(2040);
 console.log(date);
-*/
 
 // Conversion of date to the ISO standards
 const future = new Date(2037, 10, 19, 15, 23);
@@ -744,3 +755,18 @@ const calcDifference = (date1, date2) =>
   (date2 - date1) / (24 * 60 * 60 * 1000);
 
 console.log(calcDifference(new Date(2037, 3, 14), new Date(2037, 3, 27)));
+*/
+
+const num = 3884762.23;
+
+const options = {
+  style: 'unit',
+  unit: 'mile-per-hour',
+};
+
+console.log(`US: ${new Intl.NumberFormat('en-US').format(num)}`);
+console.log(`India: ${new Intl.NumberFormat('hi-IN').format(num)}`);
+console.log(`China: ${new Intl.NumberFormat('zh-CN').format(num)}`);
+console.log(
+  `Browser: ${new Intl.NumberFormat(navigator.language).format(num)}`
+);
