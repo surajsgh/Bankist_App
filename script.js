@@ -216,13 +216,32 @@ btnLogin.addEventListener('click', function (e) {
     }`;
     containerApp.style.opacity = 100;
 
+    // Experimenting API
     const now = new Date();
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = now.getHours();
-    const mins = now.getMinutes();
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${mins}`;
+    const options = {
+      hour: '2-digit',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      weekday: 'long',
+    };
+
+    // Returns the language of the browser UI
+    const locale = navigator.language;
+    console.log(locale);
+
+    labelDate.textContent = new Intl.DateTimeFormat(locale, options).format(
+      now
+    );
+    console.log(labelDate.textContent);
+    // const now = new Date();
+    // const day = `${now.getDate()}`.padStart(2, 0);
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = now.getHours();
+    // const mins = now.getMinutes();
+    // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${mins}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
