@@ -195,25 +195,25 @@ const showBalance = function (acc) {
 // showBalance(account1.movements);
 
 const updateUI = function (acc) {
-  setTimeout(() => {
-    // Display Balance
-    showBalance(currentAccount);
+  // setTimeout(() => {
+  // Display Balance
+  showBalance(currentAccount);
 
-    // Display Summary
-    calcDisplaySummary(currentAccount);
+  // Display Summary
+  calcDisplaySummary(currentAccount);
 
-    // Display Movements
-    displayMovements(currentAccount);
-  }, 1000);
+  // Display Movements
+  displayMovements(currentAccount);
+  // }, 1000);
 };
 
 // Event Handler
 let currentAccount;
 
 // Fake always logged in
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent data from submitting
@@ -788,3 +788,11 @@ if (ingredients.includes('spinach')) {
   clearTimeout(pizzaTimer);
 }
 */
+
+// setInterval(() => {
+//   const date = new Date();
+//   const hours = date.getHours();
+//   const mins = date.getMinutes();
+//   const seconds = date.getSeconds();
+//   console.log(`${hours}:${mins}:${seconds}`);
+// }, 1000);
