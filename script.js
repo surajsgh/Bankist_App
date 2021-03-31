@@ -195,14 +195,16 @@ const showBalance = function (acc) {
 // showBalance(account1.movements);
 
 const updateUI = function (acc) {
-  // Display Balance
-  showBalance(currentAccount);
+  setTimeout(() => {
+    // Display Balance
+    showBalance(currentAccount);
 
-  // Display Summary
-  calcDisplaySummary(currentAccount);
+    // Display Summary
+    calcDisplaySummary(currentAccount);
 
-  // Display Movements
-  displayMovements(currentAccount);
+    // Display Movements
+    displayMovements(currentAccount);
+  }, 1000);
 };
 
 // Event Handler
@@ -755,7 +757,6 @@ const calcDifference = (date1, date2) =>
   (date2 - date1) / (24 * 60 * 60 * 1000);
 
 console.log(calcDifference(new Date(2037, 3, 14), new Date(2037, 3, 27)));
-*/
 
 const num = 3884762.23;
 
@@ -770,3 +771,20 @@ console.log(`China: ${new Intl.NumberFormat('zh-CN').format(num)}`);
 console.log(
   `Browser: ${new Intl.NumberFormat(navigator.language).format(num)}`
 );
+
+// Array Initialization with the values
+let ingredients = ['olives', ''];
+
+// Set the timeout
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Here's your pizza with ${ing1} and ${ing2}`),
+  3000,
+  ...ingredients
+);
+console.log(`Waiting...`);
+
+if (ingredients.includes('spinach')) {
+  // Clear the timeout
+  clearTimeout(pizzaTimer);
+}
+*/
